@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFrameWork/SpringArmComponent.h"
 
+
 APawnTank::APawnTank()
 {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -26,6 +27,10 @@ void APawnTank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	Move();
+	Rotate();
+	
+
 }
 
 // Called to bind functionality to input
@@ -33,4 +38,28 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMoveInput);
+	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateRotateInput);
+}
+
+void APawnTank::CalculateMoveInput(float Value)
+{
+	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
+}
+
+void APawnTank::CalculateRotateInput(float Value)
+{
+	float RotateAmout = Value * RotateSpeed * GetWorld()->DeltaTimeSeconds;
+	FRotator Rotation = FRotator(0, RotateAmout, 0);
+	RotationDirection = FQuat(Rotation);
+}
+
+void APawnTank::Move()
+{
+	AddActorLocalOffset(MoveDirection, true);
+}
+
+void APawnTank::Rotate()
+{
+	AddActorLocalRotation(RotationDirection, true);
 }
