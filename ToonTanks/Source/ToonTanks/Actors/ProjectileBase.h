@@ -29,6 +29,10 @@ private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "True"))
 	float Damage = 50.0f;
+
+	//Dynamic Delegate
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 public:	
 	// Sets default values for this actor's properties
 	AProjectileBase();
