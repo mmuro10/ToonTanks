@@ -63,6 +63,7 @@ void APawnBase::HandleDestruction()
 
 	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation());
 	UGameplayStatics::SpawnSoundAtLocation(this, Deathsound, GetActorLocation());
+	GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(DeathShake);
 	//--- Child overrides ---
 	//--- PawnTurret - Inform GameMode Turret died - Tehn Destroy() self.
 

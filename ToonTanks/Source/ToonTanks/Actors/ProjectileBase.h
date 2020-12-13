@@ -35,6 +35,9 @@ private:
 	float Damage = 50.0f;
 
 	UPROPERTY(EditAnywhere, Category = "Effects")
+	TSubclassOf<UCameraShake> HitShake;
+
+	UPROPERTY(EditAnywhere, Category = "Effects")
 	UParticleSystem* HitParticle;
 
 	UPROPERTY(EditAnywhere, Category = "Effects")
